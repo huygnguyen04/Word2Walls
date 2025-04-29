@@ -34,7 +34,7 @@ class LayoutGenerator:
     
     def generate_room_objects(self, edit=False):
         furniture_graph_list, ornament_graph_list = {}, {}  # Store the room graphs for each room
-        poss, sizs, angs = [], [], []  # Store the positions, sizes, and angles of the objects
+        all_poss, all_sizs, all_angs = [], [], []  # Store the positions, sizes, and angles of the objects
         for i, room in enumerate(list(self.room_name_dict.keys())):
             print(colored(f"Generating objects for {room}...", "grey"))
             # Obtain the room area
@@ -55,9 +55,9 @@ class LayoutGenerator:
                 furniture_graph_list[room] = furniture_graph
                 pos, siz, ang = self.generate_furniture_layout(i, room, furniture_graph)
 
-            poss.append(pos)
-            sizs.append(siz)
-            angs.append(ang)
+            all_poss.append(pos)
+            all_sizs.append(siz)
+            all_angs.append(ang)
 
             # Generate the ornament diagram
             ornament_graph = self.generate_ornament_diagram(total_area, room, list(pos.keys()))
@@ -69,6 +69,8 @@ class LayoutGenerator:
                     break
                 ornament_graph = self.generate_ornament_diagram(total_area, room, list(pos.keys()), is_edit=True, edit_description=edit_description, edit_graph=ornament_graph)
                 ornament_graph_list[room] = ornament_graph
+                
+        return all_poss, all_sizs, all_angs
 
     def generate_furniture_layout(self, i, room, room_graph):
         # Place the furniture in the room
@@ -95,7 +97,7 @@ class LayoutGenerator:
             - Enumerate the furniture in the {}. If an item appears multiple times, append an index. Remember that the furniture should be suitable for a {} and maintain the style of the house. For example, you shouldn't only generate two sets of tables and chairs for an office room.
             - Use only from this predefined list: children_cabinet, nightstand, bookcase, wardrobe, coffee_table, corner_table, side_cabinet, wine_cabinet, tv_stand, drawer_chest, shelf, round_end_table, double_bed, queen_bed, king_bed, bunk_bed, bed_frame, single_bed, kids_bed, dining_chair, lounge_chair, office_chair, dressing_chair, classic_chinese_chair, barstool, dressing_table, dining_table, desk, three_seat_sofa, armchair, loveseat_sofa, l_shaped_sofa, lazy_sofa, chaise_longue_sofa, stool, kitchen_cabinet, toilet, bathtub, sink.
             - You need to generate as many furnitures as you can.
-            - Example: If there are two lazy sofas and an armchair in the room, list them as: “[lazy_sofa1, lazy_sofa2, armchair1]”.
+            - Example: If there are two lazy sofas and an armchair in the room, list them as: "[lazy_sofa1, lazy_sofa2, armchair1]".
         2. Furniture Description:
             - For each furniture, provide a description of its aesthetic shape and structure considering the house and room's styles.
             - Example: "A wood-carved three-seated sofa with two armrests at the sides."
@@ -111,7 +113,7 @@ class LayoutGenerator:
                 (2) "place_next_wall" which places the anchor with its side against a segment of the wall, useful for rooms with rows and columns of furniture like a classroom
                 (3) "place_wall" which places the anchor with its back against a segment of the wall
                 (4) "place_corner" which places the anchor at a corner
-                (5) “place_next(another_anchor_name, x)” which places the anchor furniture beside another anchor specified in the parameter with a buffer distance of x meters. The "another_anchor_name" is the another anchor's name in the furniture list.
+                (5) "place_next(another_anchor_name, x)" which places the anchor furniture beside another anchor specified in the parameter with a buffer distance of x meters. The "another_anchor_name" is the another anchor's name in the furniture list.
             - Last, for the other non-anchor furnitures in the group, you can only use the following non-anchor rules:
                 (1) "place_front(x)" which places the furniture in front of the anchor with a buffer distance of x meters, like a TV stand before a coffee table, 
                 (2) "place_beside(x)" which places the furniture beside the anchor with a buffer distance of x meters, like a nightstand beside a bed
@@ -138,7 +140,7 @@ class LayoutGenerator:
             - Enumerate the furniture in the {}. If an item appears multiple times, append an index. Remember that the furniture should be suitable for a {} and maintain the style of the house. For example, you shouldn't only generate two sets of tables and chairs for an office room.
             - Use only from this predefined list: children_cabinet, nightstand, bookcase, wardrobe, coffee_table, corner_table, side_cabinet, wine_cabinet, tv_stand, drawer_chest, shelf, round_end_table, double_bed, queen_bed, king_bed, bunk_bed, bed_frame, single_bed, kids_bed, dining_chair, lounge_chair, office_chair, dressing_chair, classic_chinese_chair, barstool, dressing_table, dining_table, desk, three_seat_sofa, armchair, loveseat_sofa, l_shaped_sofa, lazy_sofa, chaise_longue_sofa, stool, kitchen_cabinet, toilet, bathtub, sink.
             - You need to generate as many furnitures as you can.
-            - Example: If there are two lazy sofas and an armchair in the room, list them as: “[lazy_sofa1, lazy_sofa2, armchair1]”.
+            - Example: If there are two lazy sofas and an armchair in the room, list them as: "[lazy_sofa1, lazy_sofa2, armchair1]".
         2. Furniture Description:
             - For each furniture, provide a description of its aesthetic shape and structure considering the house and room's styles.
             - Example: "A wood-carved three-seated sofa with two armrests at the sides."
@@ -154,7 +156,7 @@ class LayoutGenerator:
                 (2) "place_next_wall" which places the anchor with its side against a segment of the wall, useful for rooms with rows and columns of furniture like a classroom
                 (3) "place_wall" which places the anchor with its back against a segment of the wall
                 (4) "place_corner" which places the anchor at a corner
-                (5) “place_next(another_anchor_name, x)” which places the anchor furniture beside another anchor specified in the parameter with a buffer distance of x meters. The "another_anchor_name" is the another anchor's name in the furniture list.
+                (5) "place_next(another_anchor_name, x)" which places the anchor furniture beside another anchor specified in the parameter with a buffer distance of x meters. The "another_anchor_name" is the another anchor's name in the furniture list.
             - Last, for the other non-anchor furnitures in the group, you can only use the following non-anchor rules:
                 (1) "place_front(x)" which places the furniture in front of the anchor with a buffer distance of x meters, like a TV stand before a coffee table, 
                 (2) "place_beside(x)" which places the furniture beside the anchor with a buffer distance of x meters, like a nightstand beside a bed
@@ -238,8 +240,25 @@ class LayoutGenerator:
                 else:  # if the another anchor is placed, place the current anchor next to it
                     key_x, key_y, key_ang = place_next(key_siz, furniture_pos[another_anchor], furniture_siz[another_anchor], furniture_ang[another_anchor], int(float(buffer) * 6), collision_map)
             else:  # else, place it according to the rule
-                anchor_func = self.str_to_rule[anchor_rule]
-                key_x, key_y, key_ang = anchor_func(bbox, centers, key_siz, collision_map)
+                # Check if this is a rule with parameters like place_front(1)
+                if "(" in anchor_rule and ")" in anchor_rule:
+                    rule_name = anchor_rule.split("(")[0]
+                    if rule_name in self.str_to_rule:
+                        # Extract the parameter
+                        param = re.findall(r"\((.*?)\)", anchor_rule)[0]
+                        buffer = int(float(param) * 6)
+                        # For place_front with parameter, we need to create a simple position and size
+                        # This is just a placeholder since this is an anchor furniture
+                        dummy_pos = centers[0]
+                        dummy_size = [10, 10]
+                        dummy_ang = "N"
+                        key_x, key_y, key_ang = place_center(bbox, centers, key_siz, collision_map)
+                    else:
+                        print(f"Unknown placement rule: {anchor_rule}")
+                        key_x, key_y, key_ang = None, None, None
+                else:
+                    anchor_func = self.str_to_rule[anchor_rule]
+                    key_x, key_y, key_ang = anchor_func(bbox, centers, key_siz, collision_map)
 
             if key_x is None:  # if the anchor cannot be placed due to conflicts
                 key_x, key_y, key_ang = place_spare() if anchor_rule[:11] != "place_next(" else place_next_wall(bbox, centers, key_siz, collision_map)
@@ -306,7 +325,7 @@ class LayoutGenerator:
                 (7) "place_around(x, anchor)" which places the furniture around an existing anchor furniture in the given list above with a buffer distance of x meters, like placing a set of candelabras around a dining table.
                 (8) "place_top(x, anchor)" which places the ornament on top of an existing anchor furniture in the given list above with a buffer distance of x meters, like placing a vodka bottle on a table.
                 (9) "place_on_wall(x)" which places the ornament on the wall at a height of x meters, like placing a clock on the wall.
-            - For example, if a pear is placed 1 meter beside "table1", your response should be {{"pear", "place_beside(1, table1)”}}.
+            - For example, if a pear is placed 1 meter beside "table1", your response should be {{"pear", "place_beside(1, table1)"}}.
             - You can set x to 0 if you want the buffer distance to 0.
             - Return format: {{<ornament_name>: <placement_rule>}}
 
@@ -348,7 +367,7 @@ class LayoutGenerator:
                 (7) "place_around(x, anchor)" which places the furniture around an existing anchor furniture in the given list above with a buffer distance of x meters, like placing a set of candelabras around a dining table.
                 (8) "place_top(x, anchor)" which places the ornament on top of an existing anchor furniture in the given list above with a buffer distance of x meters, like placing a vodka bottle on a table.
                 (9) "place_on_wall(x)" which places the ornament on the wall at a height of x meters, like placing a clock on the wall.
-            - For example, if a pear is placed 1 meter beside "table1", your response should be {{"pear", "place_beside(1, table1)”}}.
+            - For example, if a pear is placed 1 meter beside "table1", your response should be {{"pear", "place_beside(1, table1)"}}.
             - You can set x to 0 if you want the buffer distance to 0.
             - Return format: {{<ornament_name>: <placement_rule>}}
 
