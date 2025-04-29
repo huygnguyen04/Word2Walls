@@ -1,10 +1,10 @@
 # 🏠 Word2Walls
 
-**Word2Walls** is a text-driven framework for generating diverse and realistic 3D room layouts directly from natural language prompts. This project builds upon the [AnyHome](https://github.com/FreddieRao/anyhome_github) framework, extending it with modular layout generation and improved constraint-based object placement.
+## 📑 [Technical Report](https://docs.google.com/presentation/d/1nJhuzPO8a2mRjVUCf0XmAqj9vl_Ds8dUVjueYs-B86g/edit?usp=sharing) & 📊 [Presentation Slides](https://drive.google.com/file/d/1h9IplaxKWE1u3uldueNFlSDVMDEdJWIq/view?usp=sharing)
 
-## 📄 Related Documents
-- [Technical Report](https://docs.google.com/presentation/d/1nJhuzPO8a2mRjVUCf0XmAqj9vl_Ds8dUVjueYs-B86g/edit?usp=sharing)
-- [Presentation Slides](https://drive.google.com/file/d/1h9IplaxKWE1u3uldueNFlSDVMDEdJWIq/view?usp=sharing)
+<br>
+
+**Word2Walls** is a text-driven framework for generating diverse and realistic 3D room layouts directly from natural language prompts. This project builds upon the [AnyHome](https://github.com/FreddieRao/anyhome_github) framework, extending it with modular layout generation and improved constraint-based object placement.
 
 ## ✨ Key Features
 
