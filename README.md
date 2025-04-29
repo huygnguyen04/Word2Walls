@@ -2,6 +2,10 @@
 
 **Word2Walls** is a text-driven framework for generating diverse and realistic 3D room layouts directly from natural language prompts. This project builds upon the [AnyHome](https://github.com/FreddieRao/anyhome_github) framework, extending it with modular layout generation and improved constraint-based object placement.
 
+## 📄 Related Documents
+- [Technical Report](https://docs.google.com/presentation/d/1nJhuzPO8a2mRjVUCf0XmAqj9vl_Ds8dUVjueYs-B86g/edit?usp=sharing)
+- [Presentation Slides](https://drive.google.com/file/d/1h9IplaxKWE1u3uldueNFlSDVMDEdJWIq/view?usp=sharing)
+
 ## ✨ Key Features
 
 - 🏢 **Floorplan Generation** - Create house floorplans from natural language descriptions
@@ -128,7 +132,9 @@ Generated files are saved in the `output/` directory:
 
 ## 📝 License
 
-This project is released under the MIT License.
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2024 Huy Nguyen and Santiago Perez
 
 ## 🤝 Contributing
 
