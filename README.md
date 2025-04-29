@@ -1,6 +1,6 @@
 # 🏠 Word2Walls
 
-## 📑 [Technical Report](https://docs.google.com/presentation/d/1nJhuzPO8a2mRjVUCf0XmAqj9vl_Ds8dUVjueYs-B86g/edit?usp=sharing) & 📊 [Presentation Slides](https://drive.google.com/file/d/1h9IplaxKWE1u3uldueNFlSDVMDEdJWIq/view?usp=sharing)
+## 📑 [Technical Report](https://drive.google.com/file/d/1h9IplaxKWE1u3uldueNFlSDVMDEdJWIq/view?usp=sharing) & 📊 [Presentation Slides](https://docs.google.com/presentation/d/1nJhuzPO8a2mRjVUCf0XmAqj9vl_Ds8dUVjueYs-B86g/edit?usp=sharing) 
 
 <br>
 
