@@ -1,12 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-*.pyc
+# Credentials
 credentials.py
-credentials.py
-drawing.py
-floorplan/output/_true_graph.jpg
-floorplan/output/final_fp.png
-floorplan/output/init_fp.png
-floorplan/output/input_graph.png
-output/base_mesh.obj
-credentials.py
+
+# Project specific
+output/
+floorplan/output/
+*.obj
+*.mtl
+*.png
+*.jpg
+!images/*.png
+!images/*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
 .DS_Store

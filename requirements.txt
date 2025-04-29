@@ -8,3 +8,12 @@ torch==2.2.1
 torchvision==0.17.1
 webcolors==1.13
 pygraphviz==1.12
+tqdm==4.66.1
+pillow==10.0.0
+termcolor==2.3.0
+trimesh==4.0.5
+pyrender==0.1.45
+scipy==1.11.3
+pyglet==2.0.9
+PyOpenGL==3.1.7
+imageio==2.33.1
