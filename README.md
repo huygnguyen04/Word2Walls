@@ -134,7 +134,7 @@ Generated files are saved in the `output/` directory:
 
 This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Copyright (c) 2024 Huy Nguyen and Santiago Perez
+Copyright (c) 2025 Huy Nguyen and Santiago Perez
 
 ## 🤝 Contributing
 
